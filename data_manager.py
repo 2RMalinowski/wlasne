@@ -1,9 +1,11 @@
-file_name = 'crm/clients.csv'
+# DATA MANAGER MODULE
+# working with external files
 
 
 def make_table_from_data(file_name):
     """
-    Takes data from table end returns as list of lists
+    Takes data from csv file
+    Returns list of lists
     """
     try:
         with open(file_name, 'r') as file:
@@ -12,10 +14,26 @@ def make_table_from_data(file_name):
         return table
     except FileNotFoundError:
         return 'Error - there is not such file.'
+    except ConnectionError:
+        return 'Error - there is problem with connection.'
+    except Exception:
+        return 'Error happends. Try again or call customer services'
 
 
 def write_data_in_document(file_name, table):
-    with open(file_name, "w") as file:
-        for line in table:
-            row = ','.join(line)
-            file.write(row + "\n")
+    """
+    Writes data in csv file
+    No returns
+    """
+
+    try:
+        with open(file_name, "w") as file:
+            for line in table:
+                row = ','.join(line)
+                file.write(row + "\n")
+    except FileNotFoundError:
+        return 'Error - there is not such file.'
+    except ConnectionError:
+        return 'Error - there is problem with connection.'
+    except Exception:
+        return 'Error happends. Try again or call customer services'
